@@ -15,7 +15,7 @@ class FileStorage:
 
     def all(self):
         """  returns the dictionary __objects """
-        return self.__class__.__objects
+        return self.__objects
 
     def new(self, obj):
         """ sets in __objects the obj with key <obj class name>.id """
@@ -28,13 +28,16 @@ class FileStorage:
 
         for k, v in FileStorage.__objects.items():
             dic[k] = v.to_dict()
-            
+
         with open(FileStorage.__file_path, 'w') as f:
             json.dump(dic, f)
 
     def reload(self):
         """ deserializes the JSON file to __objects """
+        from models.base_model import BaseModel
+        
         if (os.path.exists(self.__file_path) is True):
             with open(self.__file_path, "r") as f:
-                json.load(f)
+                for k, v  in json.load(f).items():
+                	self.new(BaseModel(**v))
 

@@ -40,9 +40,16 @@ class BaseModel:
         """ The method returns a dictionary containing all keys/values of __dict__ of the instance
         """
         dictry = {}
-        dictry.update(self.__dict__)
-        dictry["__class__"] = self.__class__.__name__
-        dictry["created_at"] = dictry["created_at"].isoformat()
-        dictry["updated_at"] = dictry["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+	
+        for k, v in self.__dict__.items():
+            if k == "created_at" or k == "updated_at":
+                dictry[k] = v.strftime("%Y-%m-%dT%H:%M:%S.%f")
+            else:
+                if not v:
+                    pass
+                else:
+                    dictry[k] = v
+        dictry['__class__'] = self.__class__.__name__
+	
         return dictry
         
