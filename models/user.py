@@ -5,7 +5,8 @@ User class that inherits from BaseModel
 
 
 class User:
-    """ The class User holds public attributes of email, password, first_name & last_name
+    """ The class User holds public attributes of email,
+    password, first_name & last_name
     """
     email = ""
     password = ""

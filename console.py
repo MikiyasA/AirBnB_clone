@@ -10,14 +10,15 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """ The class for comand interpreter """
     prompt = '(hbnb) '
-    list_cls = ['BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
+    list_cls = ['BaseModel', 'User', 'Place', 'State',
+                'City', 'Amenity', 'Review']
 
     def emptyline(self):
         """ """
         pass
 
     def do_create(self, line):
-        """ Creates a new instance of BaseModel, 
+        """ Creates a new instance of BaseModel,
         saves it (to the JSON file) and prints the id """
         if len(line) < 1:
             print("** class name missing **")
@@ -35,7 +36,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
             return
-        
+
         line = line.split(' ')
 
         if line[0] not in HBNBCommand.list_cls:
@@ -53,12 +54,12 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, line):
-        """ Deletes an instance based on the class name and id 
+        """ Deletes an instance based on the class name and id
         (save the change into the JSON file). """
         if not line:
             print("** class name missing **")
             return
-        
+
         line = line.split(' ')
 
         if line[0] not in HBNBCommand.list_cls:
@@ -133,7 +134,7 @@ class HBNBCommand(cmd.Cmd):
                         storage.save()
                     return
             print("** no instance found **")
-                
+
     def do_EOF(self, line):
         """ EOF command to quite the program """
         return True
@@ -141,6 +142,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, line):
         """ Quite command to exit the program """
         return True
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

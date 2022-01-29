@@ -42,11 +42,11 @@ class FileStorage:
         from models.state import State
         from models.review import Review
 
-        dicty = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                 'City': City, 'Amenity': Amenity, 'State': State, 'Review': Review}
-        
+        dicty = {'BaseModel': BaseModel, 'User': User,
+                 'Place': Place, 'City': City,
+                 'Amenity': Amenity, 'State': State, 'Review': Review}
+
         if (os.path.exists(self.__file_path) is True):
             with open(self.__file_path, "r") as f:
-                for k, v  in json.load(f).items():
-                	self.new(dicty[v['__class__']](**v))
-
+                for k, v in json.load(f).items():
+                    self.new(dicty[v['__class__']](**v))
