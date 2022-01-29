@@ -5,6 +5,7 @@ The module that contains the entry point of the comand interpreter
 import cmd
 from models.base_model import BaseModel
 from models import storage
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -12,10 +13,21 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     list_cls = ['BaseModel', 'User', 'Place', 'State',
                 'City', 'Amenity', 'Review']
-
+    l_cls = ['create', 'show', 'update', 'all', 'destroy', 'count']
+    
     def emptyline(self):
         """ """
         pass
+
+    def precmd(self, line):
+        """ To parses command input """
+        if '.' in line and '(' in line and ')' in line:
+            cls = line.split('.')
+            cmnd = cls[1].split('(')
+            lines = cmnd[1].split(')')
+            if cls[0] in HBNBCommand.list_cls and cmnd[0] in HBNBCommand.l_cls:
+                line = cmnd[0] + ' ' + cls[0] + ' ' + lines[0]
+        return line
 
     def do_create(self, line):
         """ Creates a new instance of BaseModel,
@@ -115,9 +127,9 @@ class HBNBCommand(cmd.Cmd):
 
         line = shlex.split(a)
 
-        if line[0] not in HBNBCommand.items():
+        if line[0] not in HBNBCommand.list_cls:
             print("** class doesn't exist **")
-        elif len(args) == 1:
+        elif len(line) == 1:
             print("** instance id missing **")
         else:
             all_objs = storage.all()
@@ -134,6 +146,16 @@ class HBNBCommand(cmd.Cmd):
                         storage.save()
                     return
             print("** no instance found **")
+
+    def do_count(self, cls_name):
+        """ count number of instance """
+        c = 0
+        all_objs = storage.all()
+        for k, v in all_objs.items():
+            cls = k.split('.')
+            if cls[0] == cls_name:
+                c = c + 1
+        print(c)
 
     def do_EOF(self, line):
         """ EOF command to quite the program """
