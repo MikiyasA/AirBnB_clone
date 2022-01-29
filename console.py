@@ -10,7 +10,7 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """ The class for comand interpreter """
     prompt = '(hbnb) '
-    list_cls = ['BaseModel']
+    list_cls = ['BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
 
     def emptyline(self):
         """ """

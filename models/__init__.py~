@@ -1,9 +1,0 @@
-#!/usr/bin/python3
-"""
-The module to create a unique FileStorage instance for your application
-"""
-
-from module.engine.file_storage import FileStorage
-
-storage = FileStorage()
-storage.reload()

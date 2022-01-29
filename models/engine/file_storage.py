@@ -35,9 +35,18 @@ class FileStorage:
     def reload(self):
         """ deserializes the JSON file to __objects """
         from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.city import City
+        from models.amenity import Amenity
+        from models.state import State
+        from models.review import Review
+
+        dicty = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                 'City': City, 'Amenity': Amenity, 'State': State, 'Review': Review}
         
         if (os.path.exists(self.__file_path) is True):
             with open(self.__file_path, "r") as f:
                 for k, v  in json.load(f).items():
-                	self.new(BaseModel(**v))
+                	self.new(dicty[v['__class__']](**v))
 
