@@ -2,9 +2,10 @@
 """
 The class Review interit from BaseModel
 """
+from models.base_model import BaseModel
 
 
-class Review:
+class Review(BaseModel):
     """ The class Review hold 'name' public attributes
     """
     place_id = ""

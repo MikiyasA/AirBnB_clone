@@ -74,6 +74,8 @@ class FileStorageTests(unittest.TestCase):
         dobj = storage.all()
         FileStorage._FileStorage__objects = {}
         self.assertNotEqual(dobj, FileStorage._FileStorage__objects)
+        storage.reload()
+)
 
     def testSaveSelf(self):
         """ Check save self """

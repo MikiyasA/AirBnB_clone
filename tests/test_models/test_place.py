@@ -49,7 +49,7 @@ class TestPlace(unittest.TestCase):
         self.assertIsInstance(self.p.price_by_night, int)
         self.assertIsInstance(self.p.latitude, float)
         self.assertIsInstance(self.p.longitude, float)
-        self.assertIsInstance(self.p.amenity_ids, list)
+        self.assertIsInstance(self.p.amenity_ids, str)
         self.assertIsInstance(self.p.id, str)
         self.assertIsInstance(self.p.created_at, datetime.datetime)
         self.assertIsInstance(self.p.updated_at, datetime.datetime)
